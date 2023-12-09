@@ -1,0 +1,42 @@
+name: .NET Build and Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    # GitHub Actionsで動作させる仮想OS環境(Winを指定)
+    runs-on: windows-latest
+    
+    # 自動化する動作
+    steps:
+    - uses: actions/checkout@v2
+    
+    # .Net のRuntimeを仮想OSにインストールする
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        # インストール.netのバージョンを指定(.net7.0)
+        dotnet-version: '7.0.x'
+    # プロジェクトで必要なライブラリなどをインストールする
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    # ビルドを行う(同時にコーティング規約の静的チェックを行う)
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    
+    # ユニットテストを行う（項目ないけど。空実行。）
+    - name: Test
+      run: dotnet test --no-restore
+    
+    # リリースもします。
+    - name: Publish
+      run: dotnet publish --configuration Release --no-restore -o publish
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: publish/**
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
