@@ -8,13 +8,21 @@
         Title="COM削除" Height="300" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="193*"/>
+            <ColumnDefinition Width="Auto" MinWidth="100"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="Scan" Content="再スキャン" HorizontalAlignment="Left" Height="37" Margin="14,34,0,0" VerticalAlignment="Top" Width="69" Click="clk_btn_scan" Grid.Column="1"/>
-        <Button x:Name="Delete" Content="削除" HorizontalAlignment="Left" Height="37" Margin="14,123,0,0" VerticalAlignment="Top" Width="69" Click="clk_btn_delete" Grid.Column="1"/>
-        <Button x:Name="DeleteAll" Content="全て削除" HorizontalAlignment="Left" Height="37" Margin="14,201,0,0" VerticalAlignment="Top" Width="69" Click="clk_btn_delete_all" Grid.Column="1"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="204" Margin="122,34,0,0" VerticalAlignment="Top" Width="613" AutoGenerateColumns="True" SelectionMode="Extended" SelectionUnit="FullRow" CanUserAddRows="False" Grid.Column="1" />
-
+        <Grid Grid.Column="0" Margin="10,34,10,38">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="Scan" Content="再スキャン" Click="clk_btn_scan" Width="64" Height="37" Grid.Row="0"/>
+            <Button x:Name="Delete" Content="削除" Click="clk_btn_delete" Height="37" Width="64" Grid.Row="2"/>
+            <Button x:Name="DeleteAll" Content="全て削除" Click="clk_btn_delete_all" Height="37" Width="64" Grid.Row="4"/>
+        </Grid>
+        <DataGrid x:Name="dataGrid" Margin="22,34,45,38" AutoGenerateColumns="True" SelectionMode="Extended" SelectionUnit="FullRow" CanUserAddRows="False" Grid.Column="1"/>
     </Grid>
 </Window>
